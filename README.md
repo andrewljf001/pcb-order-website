@@ -64,6 +64,7 @@ GitHub Pages 启用后，可通过以下路径预览：
 | 根目录深色科技风 DEMO | `https://andrewljf001.github.io/pcb-order-website/` |
 | Claude 源码版 DEMO | `https://andrewljf001.github.io/pcb-order-website/src/` |
 | 综合 PCB + SMT + THT 整包下单 DEMO | `https://andrewljf001.github.io/pcb-order-website/demos/integrated-pcba/` |
+| 综合 PCB + SMT + THT 极客风 DEMO REV2.0 | `https://andrewljf001.github.io/pcb-order-website/demos/integrated-pcba-REV2.0/` |
 
 ## 后台规划
 
