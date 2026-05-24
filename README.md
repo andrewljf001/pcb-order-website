@@ -21,7 +21,9 @@
 
 | 文件 / 目录 | 说明 |
 |------------|------|
+| `index.html` | 根目录 DEMO（深色科技风，带真实图片模块）|
 | `src/index.html` | 首页（Hero + 即时报价计算器 + 服务 + 流程）|
+| `demos/integrated-pcba/index.html` | 综合小批量 PCB + SMT + THT + 整包下单 DEMO |
 | `src/capabilities.html` | 工艺能力页（详细规格参数表）|
 | `src/quote.html` | 完整报价配置页 |
 | `src/assembly.html` | PCB 贴片组装服务页 |
@@ -52,6 +54,16 @@ quote.html           完整报价页
 assembly.html        SMT贴片服务
 contact.html         联系/WhatsApp/表单
 ```
+
+## DEMO 预览路径
+
+GitHub Pages 启用后，可通过以下路径预览：
+
+| DEMO | 路径 |
+|------|------|
+| 根目录深色科技风 DEMO | `https://andrewljf001.github.io/pcb-order-website/` |
+| Claude 源码版 DEMO | `https://andrewljf001.github.io/pcb-order-website/src/` |
+| 综合 PCB + SMT + THT 整包下单 DEMO | `https://andrewljf001.github.io/pcb-order-website/demos/integrated-pcba/` |
 
 ## 后台规划
 

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BoardFlow EMS - PCB, SMT & THT Small Batch Ordering</title>
+  <meta name="description" content="One-stop overseas small-batch PCB fabrication, SMT assembly, THT insertion and turnkey PCBA ordering demo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#quote" aria-label="BoardFlow EMS home">
+      <span class="brand-mark">BF</span>
+      <span>BoardFlow EMS</span>
+    </a>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a href="#quote">Quote</a>
+      <a href="#services">Services</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#quality">Quality</a>
+    </nav>
+    <a class="top-cta" href="#quote">Start Order</a>
+  </header>
+
+  <main>
+    <section class="order-hero" id="quote">
+      <div class="hero-copy">
+        <p class="eyebrow">Overseas small-batch electronics manufacturing</p>
+        <h1>Order PCB fabrication, SMT assembly and THT insertion in one controlled flow.</h1>
+        <p class="hero-lede">Choose a turnkey PCBA package, or order PCB, SMT, THT, stencil, sourcing and test as separate services. Built for engineers who need fast quoting without losing manufacturing details.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#builder">Build a Quote</a>
+          <a class="secondary-action" href="#workflow">See Workflow</a>
+        </div>
+        <div class="signal-row" aria-label="Key service signals">
+          <div><strong>24h</strong><span>PCB rush option</span></div>
+          <div><strong>01005</strong><span>SMT capability</span></div>
+          <div><strong>100%</strong><span>AOI on assembly</span></div>
+        </div>
+      </div>
+      <div class="quote-console" id="builder" aria-label="Quote builder">
+        <div class="console-head">
+          <div>
+            <span class="console-kicker">Live order builder</span>
+            <h2>Configure Your Build</h2>
+          </div>
+          <span class="status-pill" id="readiness">Ready</span>
+        </div>
+
+        <fieldset class="mode-switch">
+          <legend>Order scope</legend>
+          <label><input type="radio" name="scope" value="turnkey" checked> Turnkey PCBA</label>
+          <label><input type="radio" name="scope" value="pcb"> PCB only</label>
+          <label><input type="radio" name="scope" value="smt"> SMT only</label>
+          <label><input type="radio" name="scope" value="tht"> THT only</label>
+        </fieldset>
+
+        <div class="upload-grid">
+          <label class="upload-box">
+            <span class="upload-title">Gerber / ODB++</span>
+            <span class="upload-note" id="gerberName">Drop ZIP or choose file</span>
+            <input id="gerberFile" type="file" accept=".zip,.rar,.tgz,.tar,.gz">
+          </label>
+          <label class="upload-box">
+            <span class="upload-title">BOM + CPL</span>
+            <span class="upload-note" id="bomName">XLSX, CSV or pick-place</span>
+            <input id="bomFile" type="file" accept=".xlsx,.xls,.csv,.txt">
+          </label>
+        </div>
+
+        <div class="form-grid">
+          <label>Quantity
+            <select id="quantity">
+              <option value="10">10 pcs</option>
+              <option value="25" selected>25 pcs</option>
+              <option value="50">50 pcs</option>
+              <option value="100">100 pcs</option>
+              <option value="250">250 pcs</option>
+              <option value="500">500 pcs</option>
+            </select>
+          </label>
+          <label>PCB layers
+            <select id="layers">
+              <option value="2">2 layers</option>
+              <option value="4" selected>4 layers</option>
+              <option value="6">6 layers</option>
+              <option value="8">8 layers</option>
+              <option value="10">10 layers</option>
+            </select>
+          </label>
+          <label>Board size
+            <select id="size">
+              <option value="small">50 x 50 mm</option>
+              <option value="medium" selected>100 x 80 mm</option>
+              <option value="large">150 x 120 mm</option>
+              <option value="panel">Panelized 250 x 180 mm</option>
+            </select>
+          </label>
+          <label>Assembly side
+            <select id="side">
+              <option value="top">Top side</option>
+              <option value="bottom">Bottom side</option>
+              <option value="both" selected>Both sides</option>
+            </select>
+          </label>
+          <label>Unique parts
+            <input id="uniqueParts" type="number" value="42" min="0" max="400">
+          </label>
+          <label>SMT pads
+            <input id="smtPads" type="number" value="680" min="0" max="12000">
+          </label>
+          <label>THT pins
+            <input id="thtPins" type="number" value="96" min="0" max="5000">
+          </label>
+          <label>Lead time
+            <select id="lead">
+              <option value="rush">Rush: 5-7 business days</option>
+              <option value="standard" selected>Standard: 10-12 business days</option>
+              <option value="economy">Economy: 15-18 business days</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="option-row" aria-label="Advanced options">
+          <label><input id="sourcing" type="checkbox" checked> Component sourcing</label>
+          <label><input id="testing" type="checkbox" checked> Functional test</label>
+          <label><input id="conformal" type="checkbox"> Conformal coating</label>
+        </div>
+
+        <div class="quote-result" aria-live="polite">
+          <div>
+            <span>Estimated total</span>
+            <strong id="totalPrice">$486.00</strong>
+            <small id="unitPrice">$19.44 per assembled board</small>
+          </div>
+          <button class="primary-action button" id="reviewButton" type="button">Review Order</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-band" id="services">
+      <div class="section-head">
+        <p class="eyebrow">One supplier, selectable scope</p>
+        <h2>Flexible service modules for overseas prototype and small-batch buyers.</h2>
+      </div>
+      <div class="service-grid">
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=720&q=80" alt="Close-up of a printed circuit board">
+          <div>
+            <span>PCB fabrication</span>
+            <h3>Rigid, flex and advanced boards</h3>
+            <p>FR-4, aluminum, HDI and RF materials with ENIG, OSP, HASL and impedance control options.</p>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=720&q=80" alt="Electronics assembly station">
+          <div>
+            <span>SMT assembly</span>
+            <h3>Prototype to low-volume assembly</h3>
+            <p>Single-side or double-side placement, fine pitch packages, stencil, reflow, AOI and X-ray checks.</p>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1581093458791-9d26f8b9a005?w=720&q=80" alt="Technician working with electronics">
+          <div>
+            <span>THT insertion</span>
+            <h3>Connector and mechanical parts</h3>
+            <p>Through-hole connectors, terminals, switches, displays, selective solder and manual soldering review.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="workflow" id="workflow">
+      <div class="section-head compact">
+        <p class="eyebrow">Simulated platform workflow</p>
+        <h2>From file intake to production tracking.</h2>
+      </div>
+      <div class="timeline">
+        <button class="step active" type="button" data-stage="0"><span>01</span>Upload files</button>
+        <button class="step" type="button" data-stage="1"><span>02</span>DFM review</button>
+        <button class="step" type="button" data-stage="2"><span>03</span>BOM sourcing</button>
+        <button class="step" type="button" data-stage="3"><span>04</span>Assembly build</button>
+        <button class="step" type="button" data-stage="4"><span>05</span>Ship worldwide</button>
+      </div>
+      <div class="stage-panel">
+        <img id="stageImage" src="https://images.unsplash.com/photo-1563770660941-20978e870e26?w=960&q=80" alt="PCB manufacturing workflow preview">
+        <div>
+          <span id="stageTag">File intake</span>
+          <h3 id="stageTitle">Gerber, BOM and CPL are checked together.</h3>
+          <p id="stageText">The order starts as a manufacturing package instead of disconnected emails. Missing files, board outline issues and unsupported parts are flagged before payment.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="quality" id="quality">
+      <div>
+        <p class="eyebrow">What this demo improves</p>
+        <h2>Cleaner than dense quote pages, more complete than a simple PCB form.</h2>
+        <p>Many PCB sites split fabrication and assembly into separate flows. This demo keeps the engineer's real buying decision visible: order everything as a package, or select only the manufacturing stage they need.</p>
+      </div>
+      <div class="quality-list">
+        <div><strong>Itemized estimate</strong><span>PCB, SMT labor, THT labor, sourcing, testing and shipping update live.</span></div>
+        <div><strong>Procurement ready</strong><span>Includes buyer-friendly lead time, order scope, file status and package review.</span></div>
+        <div><strong>Realistic next step</strong><span>The review modal summarizes the job like a real RFQ handoff.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="review-modal" id="reviewModal">
+    <form method="dialog">
+      <div class="modal-head">
+        <div>
+          <span class="console-kicker">Order review</span>
+          <h2>Manufacturing package summary</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Close review">x</button>
+      </div>
+      <div class="summary-list" id="summaryList"></div>
+      <div class="modal-actions">
+        <button class="secondary-action button" value="cancel">Keep Editing</button>
+        <button class="primary-action button" value="default">Send RFQ Simulation</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
