@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BoardFlow Ops - Order Routing REV1.0</title>
+  <meta name="description" content="Demo dashboard for routing PCB-only orders to JLCPCB draft quote review, while keeping SMT and THT work in the internal production queue.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="shell-top">
+    <a class="brand" href="#queue"><span>BF</span>BoardFlow Ops <em>REV1.0</em></a>
+    <nav aria-label="Operations sections">
+      <a href="#queue">Queue</a>
+      <a href="#routing">Routing Logic</a>
+      <a href="#review">Review Gate</a>
+    </nav>
+    <button class="sync-button" id="syncButton" type="button">Run Sync Simulation</button>
+  </header>
+
+  <main>
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">// commercial routing logic</p>
+        <h1>PCB-only orders become supplier quote drafts. Assembly orders stay inside your shop.</h1>
+        <p class="lede">This demo models your real operating rule: customer orders come in through your site; PCB fabrication is automatically prepared for JLCPCB/JLC-style outsourcing; SMT and THT work moves into your internal document review and production queue.</p>
+      </div>
+      <div class="hero-metrics" aria-label="Order routing metrics">
+        <div><span id="metricAuto">3</span><strong>Auto-routed PCB jobs</strong></div>
+        <div><span id="metricInternal">3</span><strong>Internal assembly jobs</strong></div>
+        <div><span id="metricReview">4</span><strong>Waiting for your review</strong></div>
+      </div>
+    </section>
+
+    <section class="ops-grid" id="queue">
+      <aside class="queue-card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">// inbound orders</p>
+            <h2>Customer Queue</h2>
+          </div>
+          <select id="filterScope" aria-label="Filter orders by scope">
+            <option value="all">All orders</option>
+            <option value="pcb">PCB only</option>
+            <option value="assembly">SMT / THT / turnkey</option>
+          </select>
+        </div>
+        <div class="order-list" id="orderList"></div>
+      </aside>
+
+      <section class="detail-card" aria-live="polite">
+        <div class="detail-top">
+          <div>
+            <p class="eyebrow" id="detailRoute">// supplier draft</p>
+            <h2 id="detailTitle">Order BF-2407</h2>
+          </div>
+          <span class="status-pill" id="detailStatus">Awaiting review</span>
+        </div>
+
+        <div class="data-grid">
+          <div><span>Customer</span><strong id="customerName">Apex Robotics</strong></div>
+          <div><span>Scope</span><strong id="orderScope">PCB only</strong></div>
+          <div><span>Files</span><strong id="fileStatus">Gerber ZIP ready</strong></div>
+          <div><span>Risk</span><strong id="riskLevel">Low</strong></div>
+        </div>
+
+        <div class="pipeline" id="routing">
+          <div class="pipe-step active"><span>01</span>Receive order</div>
+          <div class="pipe-step active"><span>02</span>Classify scope</div>
+          <div class="pipe-step active" id="supplierStep"><span>03</span>Prepare supplier draft</div>
+          <div class="pipe-step"><span>04</span>Owner review</div>
+          <div class="pipe-step"><span>05</span>Submit or hold</div>
+        </div>
+
+        <div class="workspace">
+          <div class="panel">
+            <h3>Automation Payload</h3>
+            <pre id="payloadPreview"></pre>
+          </div>
+          <div class="panel">
+            <h3>Review Summary</h3>
+            <div class="review-lines" id="reviewLines"></div>
+          </div>
+        </div>
+
+        <div class="actions" id="review">
+          <button class="secondary" id="requoteButton" type="button">Requote Draft</button>
+          <button class="secondary" id="holdButton" type="button">Hold for Manual Check</button>
+          <button class="primary" id="approveButton" type="button">Approve Next Step</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="logic-band">
+      <div>
+        <p class="eyebrow">// safe automation boundary</p>
+        <h2>Automation stops before money leaves your account.</h2>
+        <p>The supplier integration should upload files, request pricing, and create a draft or quote record. Final submission, payment, and any parameter mismatch remain behind your review gate.</p>
+      </div>
+      <div class="rule-grid">
+        <article>
+          <span>PCB only</span>
+          <h3>Send to JLC-style API</h3>
+          <p>Gerber, quantity, layer count, finish, solder mask, thickness and shipping preference are packaged for supplier quotation.</p>
+        </article>
+        <article>
+          <span>SMT / THT</span>
+          <h3>Keep internal</h3>
+          <p>BOM, CPL, assembly notes and customer files move to your document review queue for your own manufacturing process.</p>
+        </article>
+        <article>
+          <span>Turnkey</span>
+          <h3>Split the job</h3>
+          <p>PCB fabrication can be quoted outside while BOM cleanup, placement review and insertion planning stay with your team.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="decisionModal" class="decision-modal">
+    <form method="dialog">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">// decision recorded</p>
+          <h2 id="modalTitle">Action complete</h2>
+        </div>
+        <button value="cancel" aria-label="Close">x</button>
+      </div>
+      <p id="modalText"></p>
+      <menu>
+        <button class="primary" value="default">Close</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
